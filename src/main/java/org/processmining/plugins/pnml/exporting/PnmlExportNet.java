@@ -28,32 +28,15 @@ import org.processmining.plugins.pnml.base.Pnml.PnmlType;
 
 public class PnmlExportNet {
 
-	public String exportPetriNetToPNMLOrEPNMLString(PluginContext context, Petrinet net, Pnml.PnmlType type,
+	public String exportPetriNetToPNMLOrEPNMLString(Petrinet net, Pnml.PnmlType type,
 			boolean xmlTag) {
 		Marking marking;
-		try {
-			marking = context.tryToFindOrConstructFirstObject(Marking.class, InitialMarkingConnection.class,
-					InitialMarkingConnection.MARKING, net);
-		} catch (ConnectionCannotBeObtained e) {
-			// use empty marking\
-			marking = new Marking();
-		}
+		// use empty marking\
+		marking = new Marking();
 		Collection<Marking> finalMarkings = new HashSet<Marking>();
-		try {
-			Collection<FinalMarkingConnection> connections = context.getConnectionManager().getConnections(
-					FinalMarkingConnection.class, context, net);
-			for (FinalMarkingConnection connection : connections) {
-				finalMarkings.add((Marking) connection.getObjectWithRole(FinalMarkingConnection.MARKING));
-			}
-		} catch (ConnectionCannotBeObtained e) {
-		}
 
 		GraphLayoutConnection layout;
-		try {
-			layout = context.getConnectionManager().getFirstConnection(GraphLayoutConnection.class, context, net);
-		} catch (ConnectionCannotBeObtained e) {
-			layout = new GraphLayoutConnection(net);
-		}
+		layout = new GraphLayoutConnection(net);
 		HashMap<PetrinetGraph, Marking> markedNets = new HashMap<PetrinetGraph, Marking>();
 		HashMap<PetrinetGraph, Collection<Marking>> finalMarkedNets = new HashMap<PetrinetGraph, Collection<Marking>>();
 		markedNets.put(net, marking);
@@ -70,32 +53,15 @@ public class PnmlExportNet {
 				.exportElement(pnml);
 	}
 
-	protected void exportPetriNetToPNMLOrEPNMLFile(PluginContext context, Petrinet net, File file, Pnml.PnmlType type)
+	protected void exportPetriNetToPNMLOrEPNMLFile(Petrinet net, File file, Pnml.PnmlType type)
 			throws IOException {
 		Marking marking;
-		try {
-			marking = context.tryToFindOrConstructFirstObject(Marking.class, InitialMarkingConnection.class,
-					InitialMarkingConnection.MARKING, net);
-		} catch (ConnectionCannotBeObtained e) {
-			// use empty marking\
-			marking = new Marking();
-		}
+		// use empty marking\
+		marking = new Marking();
 		Collection<Marking> finalMarkings = new HashSet<Marking>();
-		try {
-			Collection<FinalMarkingConnection> connections = context.getConnectionManager().getConnections(
-					FinalMarkingConnection.class, context, net);
-			for (FinalMarkingConnection connection : connections) {
-				finalMarkings.add((Marking) connection.getObjectWithRole(FinalMarkingConnection.MARKING));
-			}
-		} catch (ConnectionCannotBeObtained e) {
-		}
 
 		GraphLayoutConnection layout;
-		try {
-			layout = context.getConnectionManager().getFirstConnection(GraphLayoutConnection.class, context, net);
-		} catch (ConnectionCannotBeObtained e) {
-			layout = new GraphLayoutConnection(net);
-		}
+		layout = new GraphLayoutConnection(net);
 		HashMap<PetrinetGraph, Marking> markedNets = new HashMap<PetrinetGraph, Marking>();
 		HashMap<PetrinetGraph, Collection<Marking>> finalMarkedNets = new HashMap<PetrinetGraph, Collection<Marking>>();
 		markedNets.put(net, marking);

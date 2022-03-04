@@ -12,22 +12,17 @@ import org.processmining.models.graphbased.directed.petrinet.Petrinet;
 import org.processmining.models.graphbased.directed.petrinet.configurable.impl.ConfigurableResetInhibitorNet;
 import org.processmining.plugins.pnml.base.Pnml;
 
-@Plugin(name = "PNML export (Petri net)", level = PluginLevel.PeerReviewed, returnLabels = {}, returnTypes = {}, parameterLabels = { "Petri net",
-		"Open net", "Configurable net", "File" }, userAccessible = true)
 public class PnmlExportNetToPNML extends PnmlExportNet {
 
-	@PluginVariant(variantLabel = "PNML export (Petri net)", requiredParameterLabels = { 0, 3 })
-	public void exportPetriNetToPNMLFile(PluginContext context, Petrinet net, File file) throws IOException {
-		exportPetriNetToPNMLOrEPNMLFile(context, net, file, Pnml.PnmlType.PNML);
+	public void exportPetriNetToPNMLFile(Petrinet net, File file) throws IOException {
+		exportPetriNetToPNMLOrEPNMLFile(net, file, Pnml.PnmlType.PNML);
 	}
 
-	@PluginVariant(variantLabel = "PNML export (Open net)", requiredParameterLabels = { 1, 3 })
-	public void exportPetriNetToPNMLFile(PluginContext context, OpenNet openNet, File file) throws IOException {
-		exportPetriNetToPNMLOrEPNMLFile(context, openNet, file, Pnml.PnmlType.PNML);
+	public void exportPetriNetToPNMLFile(OpenNet openNet, File file) throws IOException {
+		exportPetriNetToPNMLOrEPNMLFile(openNet, file, Pnml.PnmlType.PNML);
 	}
 
-	@PluginVariant(variantLabel = "PNML export (Configurable net)", requiredParameterLabels = { 2, 3 })
-	public void exportPetriNetToPNMLFile(PluginContext context, ConfigurableResetInhibitorNet configurableNet, File file) throws IOException {
-		exportPetriNetToPNMLOrEPNMLFile(context, configurableNet, file, Pnml.PnmlType.PNML);
+	public void exportPetriNetToPNMLFile(ConfigurableResetInhibitorNet configurableNet, File file) throws IOException {
+		exportPetriNetToPNMLOrEPNMLFile(configurableNet, file, Pnml.PnmlType.PNML);
 	}
 }
